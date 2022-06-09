@@ -9,9 +9,13 @@ const Home: NextPage = () => {
     done: true,
   };
 
+  const onRemove = (id: number) => {
+    console.log(id);
+  };
+
   return (
     <ul>
-      <TodoItem todo={sampleTodo} />
+      <TodoItem todo={sampleTodo} onRemove={onRemove} />
     </ul>
   );
 };

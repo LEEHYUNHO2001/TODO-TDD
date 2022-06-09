@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { TodoItem } from '@/components/TodoItem';
 import { TodoProps } from '@/types/todoProps';
@@ -11,17 +11,19 @@ describe('<TodoItem />', () => {
   };
 
   const setup = (props = {} as TodoProps) => {
+    const onRemove = jest.fn();
     const initialProps = { todo: sampleTodo };
-    const utils = render(<TodoItem {...initialProps} {...props} />);
+    const utils = render(<TodoItem {...initialProps} {...props} onRemove={onRemove} />);
     const todo = props.todo || initialProps.todo;
     const input = screen.getByLabelText(todo.text, { selector: 'input' });
     const label = screen.getByText(todo.text);
-    const button = screen.getByText('삭제');
+    const button = screen.getByText('삭제하기');
     return {
       ...utils,
       input,
       label,
       button,
+      onRemove,
     };
   };
 
@@ -42,5 +44,11 @@ describe('<TodoItem />', () => {
     const { input, label } = setup({ todo: { ...sampleTodo, done: true } });
     expect(input).toBeChecked();
     expect(label).toHaveStyle('text-decoration: line-through;');
+  });
+
+  it('calls onRemove', () => {
+    const { button, onRemove } = setup();
+    fireEvent.click(button);
+    expect(onRemove).toBeCalledWith(sampleTodo.id);
   });
 });
