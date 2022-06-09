@@ -15,9 +15,15 @@ describe('<TodoList />', () => {
       done: true,
     },
   ];
+  const setup = () => {
+    const onRemove = jest.fn();
+    const utils = render(<TodoList todos={sampleTodos} onRemove={onRemove} />);
+
+    return { ...utils, onRemove };
+  };
 
   it('renders todos properly', () => {
-    render(<TodoList todos={sampleTodos} />);
+    setup();
     screen.getByText(sampleTodos[0].text);
     screen.getByText(sampleTodos[1].text);
   });
