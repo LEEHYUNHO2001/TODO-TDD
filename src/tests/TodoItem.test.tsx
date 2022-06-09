@@ -12,10 +12,10 @@ describe('<TodoItem />', () => {
 
   const setup = (props = {} as TodoProps) => {
     const initialProps = { todo: sampleTodo };
-    const utils = render(<TodoItem {...initialProps} />);
+    const utils = render(<TodoItem {...initialProps} {...props} />);
     const todo = props.todo || initialProps.todo;
     const input = screen.getByLabelText(todo.text, { selector: 'input' });
-    const label = screen.getByLabelText(todo.text);
+    const label = screen.getByText(todo.text);
     const button = screen.getByText('삭제');
     return {
       ...utils,
@@ -30,5 +30,17 @@ describe('<TodoItem />', () => {
     expect(input).toBeTruthy();
     expect(label).toBeTruthy();
     expect(button).toBeTruthy();
+  });
+
+  it('does not show check and line-through when done is false', () => {
+    const { input, label } = setup({ todo: { ...sampleTodo, done: false } });
+    expect(input).not.toBeChecked();
+    expect(label).not.toHaveStyle('text-decoration: line-through;');
+  });
+
+  it('shows check and line-through when done is true', () => {
+    const { input, label } = setup({ todo: { ...sampleTodo, done: true } });
+    expect(input).toBeChecked();
+    expect(label).toHaveStyle('text-decoration: line-through;');
   });
 });
