@@ -40,10 +40,14 @@ export const TodoApp = () => {
     console.log(id, 'onRemove');
   }, []);
 
+  const handleCheckBox = useCallback((id: number, done: boolean) => {
+    console.log(id, done);
+  }, []);
+
   return (
     <div>
       <TodoForm data-testid="helloworld" onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove} />
+      <TodoList todos={todos} onRemove={onRemove} handleCheckBox={handleCheckBox} />
     </div>
   );
 };

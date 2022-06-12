@@ -1,23 +1,11 @@
 import type { NextPage } from 'next';
 
-import { TodoItem } from '@/components/TodoItem';
+import { TodoApp } from '@/components/TodoApp';
 
-const Home: NextPage = () => {
-  const sampleTodo = {
-    id: 1,
-    text: 'TODO-TDD',
-    done: true,
-  };
-
-  const onRemove = (id: number) => {
-    console.log(id);
-  };
-
-  return (
-    <ul>
-      <TodoItem todo={sampleTodo} onRemove={onRemove} />
-    </ul>
-  );
-};
+const Home: NextPage = () => (
+  <ul>
+    <TodoApp />
+  </ul>
+);
 
 export default Home;
