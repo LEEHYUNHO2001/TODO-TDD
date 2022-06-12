@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Todo } from '@/types/todoProps';
 
@@ -24,12 +24,22 @@ export const TodoApp = () => {
     setTodos(data);
   }, []);
 
-  const onInsert = () => {
-    console.log('onInsert');
-  };
-  const onRemove = (id: number) => {
+  const onInsert = useCallback(
+    (value: string) => {
+      const newData = {
+        id: todos.length + 1,
+        text: value,
+        done: false,
+      };
+      setTodos([...todos, newData]);
+    },
+    [todos]
+  );
+
+  const onRemove = useCallback((id: number) => {
     console.log(id, 'onRemove');
-  };
+  }, []);
+
   return (
     <div>
       <TodoForm data-testid="helloworld" onInsert={onInsert} />
