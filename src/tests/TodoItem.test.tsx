@@ -59,6 +59,6 @@ describe('<TodoItem />', () => {
   it('calls handleCheckBox', () => {
     const { input, handleCheckBox } = setup();
     fireEvent.click(input);
-    expect(handleCheckBox).toBeCalledWith(sampleTodo.id, sampleTodo.done);
+    expect(handleCheckBox).toBeCalledWith(sampleTodo.id, !sampleTodo.done);
   });
 });

@@ -13,7 +13,7 @@ export const TodoItem = ({ todo, onRemove, handleCheckBox }: TodoItemProps) => {
 
   return (
     <li>
-      <input type="checkbox" id={text} checked={done} onChange={() => handleCheckBox(id, done)} />
+      <input type="checkbox" id={text} checked={done} onChange={() => handleCheckBox(id, !done)} />
       <Label htmlFor={text} checked={done}>
         {text}
       </Label>
