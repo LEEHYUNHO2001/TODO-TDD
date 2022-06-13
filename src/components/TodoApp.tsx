@@ -26,23 +26,21 @@ export const TodoApp = () => {
 
   const onInsert = useCallback(
     (value: string) => {
+      const newId = todos[todos.length - 1] ? todos[todos.length - 1].id + 1 : 1;
+
       const newData = {
-        id: todos.length + 1,
+        id: newId,
         text: value,
         done: false,
       };
-      setTodos([...todos, newData]);
+      setTodos(todos => [...todos, newData]);
     },
     [todos]
   );
 
-  const onRemove = useCallback(
-    (id: number) => {
-      const filtered = todos.filter(data => data.id !== id);
-      setTodos(filtered);
-    },
-    [todos]
-  );
+  const onRemove = useCallback((id: number) => {
+    setTodos(todos => todos.filter(data => data.id !== id));
+  }, []);
 
   const handleCheckBox = useCallback(
     (id: number, done: boolean) => {
