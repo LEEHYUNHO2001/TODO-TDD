@@ -33,27 +33,25 @@ export const TodoApp = () => {
         text: value,
         done: false,
       };
-      setTodos(todos => [...todos, newData]);
+      setTodos([...todos, newData]);
     },
     [todos]
   );
 
   const onRemove = useCallback((id: number) => {
-    setTodos(todos => todos.filter(data => data.id !== id));
+    setTodos(prev => prev.filter(data => data.id !== id));
   }, []);
 
-  const handleCheckBox = useCallback(
-    (id: number, done: boolean) => {
-      const filtered = todos.map(data => {
+  const handleCheckBox = useCallback((id: number, done: boolean) => {
+    setTodos(prev =>
+      prev.map(data => {
         if (data.id === id) {
           return { ...data, done };
         }
         return data;
-      });
-      setTodos(filtered);
-    },
-    [todos]
-  );
+      })
+    );
+  }, []);
 
   return (
     <div>
